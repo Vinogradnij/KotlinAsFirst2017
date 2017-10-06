@@ -1,7 +1,6 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson2.task1
 
-import com.intellij.util.Function
 import lesson1.task1.discriminant
 
 /**
