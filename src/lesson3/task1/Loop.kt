@@ -60,7 +60,19 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+
+    var number: Int = Math.abs(n)
+    var i = 0
+    if (number == 0) {
+        return 1
+    }
+    while (number > 0) {
+        i += 1
+        number /= 10
+    }
+    return i
+}
 
 /**
  * Простая
@@ -134,7 +146,22 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int  {
+
+    var revertNumber = 0
+    var remainder = n
+
+    while (remainder > 0) {
+
+        revertNumber = revertNumber * 10 + remainder % 10
+
+        remainder/= 10
+
+    }
+
+    return revertNumber
+
+}
 
 /**
  * Средняя
@@ -143,7 +170,7 @@ fun revert(n: Int): Int = TODO()
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = revert(n)==n
 
 /**
  * Средняя
@@ -151,7 +178,7 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean = digitCountInNumber(n, (n % 10)) != digitNumber(n)
 
 /**
  * Сложная
