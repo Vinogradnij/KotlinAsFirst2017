@@ -88,14 +88,26 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var numberM = m
+    var numberN = n
+    while (numberM != 0 && numberN != 0) {
+        if (numberM > numberN) {
+            numberM %= numberN
+        }
+        else {
+            numberN %= numberM
+        }
+    }
+    return (m * n) / (numberN + numberM)
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int  = TODO()
 
 /**
  * Простая

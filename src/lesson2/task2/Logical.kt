@@ -17,7 +17,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int) :Boolean = (number / 100) == (number % 100)
+fun isNumberHappy(number: Int) :Boolean = ((number / 100) == (number % 100))
 
 
 
@@ -29,7 +29,7 @@ fun isNumberHappy(number: Int) :Boolean = (number / 100) == (number % 100)
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
-        (x1==x2) || (y1==y2) || (Math.abs(x1 - x2) == Math.abs(y1 - y2))
+        (x1 == x2) || (y1 == y2) || (Math.abs(x1 - x2) == Math.abs(y1 - y2))
 
 /**
  * Средняя
@@ -40,7 +40,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean =
-        sqr(r2) > sqr(x1 - x2) + sqr(y1 - y2) + sqr(r1)
+        sqr(r2) > sqr(x2 - x1) + sqr(y2 - y1) + sqr(r1)
 
 /**
  * Средняя
