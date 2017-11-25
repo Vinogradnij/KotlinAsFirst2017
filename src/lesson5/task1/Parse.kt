@@ -168,7 +168,24 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (expression.matches(Regex("""\d+""")))
+        return expression.toInt()
+    if (!expression.matches(Regex("""(?:\d+\s[+-]\s)+\d+""")))
+        throw IllegalArgumentException("Error format")
+    val parts = Regex("""\s+""").replace(expression, " ").split(" ")
+    var result = parts[0].toInt()
+    for (i in 0..parts.size - 2 step 2) {
+        val sign = parts[i + 1]
+        val number = parts[i + 2]
+        when(sign) {
+            "+" -> result += number.toInt()
+            "-" -> result -= number.toInt()
+            else -> throw IllegalArgumentException("Error format")
+        }
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -179,7 +196,19 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.toLowerCase().split(" ")
+    var index = 0
+    var counter = 1
+    while (counter < parts.size) {
+        if (parts[counter - 1] == parts[counter]) {
+         return index
+        }
+        index += parts[counter - 1].length + 1
+        counter ++
+    }
+    return -1
+}
 
 /**
  * Сложная
@@ -192,7 +221,28 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть положительными
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    var result = ""
+    var max = 0.0
+    val parts = description.split(";")
+    try {
+        for (i in 0 until parts.size) {
+            val product = parts[i].trim().split(" ")
+            val price = product[1].toDouble()
+            if (price > max) {
+                max = price
+                result = product[0]
+            }
+        }
+        return result
+    }
+    catch (e: NumberFormatException) {
+        return ""
+    }
+    catch (e: IndexOutOfBoundsException) {
+        return ""
+    }
+}
 
 /**
  * Сложная
