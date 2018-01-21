@@ -217,8 +217,4 @@ class Tests {
         assertEquals(5, fibSequenceDigit(14))
         assertEquals(2, fibSequenceDigit(20))
     }
-    @Test
-    fun myFun() {
-        assertEquals(listOf(1, 4, 18, 96), myFun(1234))
-    }
 }
