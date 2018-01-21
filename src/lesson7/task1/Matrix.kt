@@ -38,69 +38,31 @@ interface Matrix<E> {
  * height = высота, width = ширина, e = чем заполнить элементы.
  * Бросить исключение IllegalArgumentException, если height или width <= 0.
  */
-fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
-    if (height <= 0 || width <= 0) throw IllegalArgumentException()
-    return MatrixImpl(height, width, e)
-}
+fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> = TODO()
 
 /**
  * Средняя сложность
  *
  * Реализация интерфейса "матрица"
  */
-class MatrixImpl<E>(override val height: Int, override val width: Int, e: E) : Matrix<E> {
+class MatrixImpl<E> : Matrix<E> {
+    override val height: Int = TODO()
 
-    private val list = mutableListOf<E>()
+    override val width: Int = TODO()
 
-    init {
-        for (i in 0..height * width) run {
-            list.add(e)
-        }
-    }
+    override fun get(row: Int, column: Int): E  = TODO()
 
-
-    override fun get(row: Int, column: Int): E = list[width * row + column]
-
-    override fun get(cell: Cell): E = list[cell.row * width + cell.column]
+    override fun get(cell: Cell): E  = TODO()
 
     override fun set(row: Int, column: Int, value: E) {
-        list[width * row + column] = value
+        TODO()
     }
 
     override fun set(cell: Cell, value: E) {
-        list[cell.row * width + cell.column] = value
+        TODO()
     }
 
-    override fun equals(other: Any?): Boolean {
-        if ((other is MatrixImpl<*> && height == other.height && width == other.width)) {
-            for (i in 0..height - 1) {
-                for (j in 0..width - 1) {
-                    if (other[i, j] != this[i, j]) {
-                        return false
-                    }
-                }
-            }
-            return true
-        }
-        return false
-    }
+    override fun equals(other: Any?) = TODO()
 
-    override fun toString(): String {
-        val result = StringBuilder()
-        for (i in 0..height - 1) {
-            for (j in 0..width - 1) {
-                result.append(this[i, j])
-            }
-            result.append("\t")
-        }
-        return result.toString()
-    }
-
-    override fun hashCode(): Int {
-        var result = height
-        result = 31 * result + width
-        result = 31 * result + list.hashCode()
-        return result
-    }
+    override fun toString(): String = TODO()
 }
-
