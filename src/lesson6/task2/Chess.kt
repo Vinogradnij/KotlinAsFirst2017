@@ -150,7 +150,7 @@ fun bishopMoveNumber(start: Square, end: Square): Int {
     return when {
         start == end -> 0
         (start.column + start.row + end.column + end.row) % 2 !=0 -> -1
-        (start.column != end.column) && (start.row != end.row) -> 1
+        Math.abs(start.column - start.row) == Math.abs(end.column - end.row) -> 1
         else -> 2
     }
 }
@@ -178,7 +178,7 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
     return when {
         (start.column + start.row + end.column + end.row) % 2 !=0 -> listOf()
         start == end -> listOf(start)
-        (start.column != end.column) && (start.row != end.row) -> listOf(start,end)
+        Math.abs(start.column - start.row) == Math.abs(end.column - end.row) -> listOf(start,end)
         start.column <=4 -> listOf(start, Square((start.column - start.row + end.column + end.row) / 2,
                 (start.column - start.row + end.column + end.row) / 2 - (start.column - start.row)), end)
         else -> listOf(start, Square((start.column + start.row + end.column - end.row) / 2,
