@@ -1,7 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson7.task2
 
+import lesson3.task1.factorial
 import lesson7.task1.Matrix
+import lesson7.task1.MatrixImpl
 import lesson7.task1.createMatrix
 
 // Все задачи в этом файле требуют наличия реализации интерфейса "Матрица" в Matrix.kt
@@ -59,7 +61,36 @@ operator fun Matrix<Int>.plus(other: Matrix<Int>): Matrix<Int> {
  * 10 11 12  5
  *  9  8  7  6
  */
-fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
+fun generateSpiral(height: Int, width: Int): Matrix<Int> {
+    val result = MatrixImpl(height, width, 1)
+    var place = 0
+    val area = height * width
+    var counter = 1
+    while (counter <= area) {
+        for (i in place until (width - place)) {
+            if (counter <= area) {
+                result[place, i] = counter++
+            } else break
+        }
+        for (i in (place + 1) until (height - place)) {
+            if (counter <= area) {
+                result[i, width - place - 1] = counter++
+            } else break
+        }
+        for (i in (width - place - 2) downTo place) {
+            if (counter <= area) {
+                result[height - place - 1, i] = counter++
+            } else break
+        }
+        for (i in (height - place - 2) downTo (place + 1)) {
+            if (counter <= area) {
+                result[i, place] = counter++
+            } else break
+        }
+        place++
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -118,7 +149,25 @@ fun <E> rotate(matrix: Matrix<E>): Matrix<E> = TODO()
  * 1 2 3
  * 3 1 2
  */
-fun isLatinSquare(matrix: Matrix<Int>): Boolean = TODO()
+fun isLatinSquare(matrix: Matrix<Int>): Boolean {
+    if (matrix.height != matrix.width) return false
+    var row = 1
+    var column = 1
+    val factorial = factorial(matrix.width).toInt()
+    for (i in 0 until matrix.height) {
+        for (j in 0 until matrix.width) {
+            if (matrix[i, j] > matrix.width || matrix[j, i] > matrix.width) {
+                return false
+            }
+            row *= matrix[i, j]
+            column *= matrix[j, i]
+        }
+        if (row != column || row != factorial) return false
+        row = 1
+        column = 1
+    }
+    return true
+}
 
 /**
  * Средняя
