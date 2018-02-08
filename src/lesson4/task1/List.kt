@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson4.task1
 
 import lesson1.task1.discriminant
@@ -182,7 +183,7 @@ fun polynom(p: List<Double>, x: Double): Double {
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     for (i in 1 until list.size) {
-        list[i] += list[i-1]
+        list[i] += list[i - 1]
     }
     return list
 }
@@ -214,7 +215,7 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = factorize(n).joinToString (separator = "*")
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -274,7 +275,7 @@ fun roman(n: Int): String {
             numberN -= arabN[counter]
             result += romN[counter]
         }
-        counter --
+        counter--
     }
     return result
 }
@@ -287,7 +288,7 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int):  String {
+fun russian(n: Int): String {
     val result = StringBuilder()
     val hundredths = listOf("", " сто", " двести", " триста", " четыреста", " пятьсот", " шестьсот",
             " семьсот", " восемьсот", " девятьсот")
@@ -308,12 +309,7 @@ fun russian(n: Int):  String {
             0 -> if (arrayOfNumeral[i] != 0) result.append(hundredths[arrayOfNumeral[i]])
             1 -> (if (arrayOfNumeral[i] != 0 && arrayOfNumeral[i] != 1) result.append(decimal[arrayOfNumeral[i]])
             else if (arrayOfNumeral[i] != 0) {
-                result.append(exceptions[arrayOfNumeral[i + 1]])
-                when (arrayOfNumeral[i + 1]) {
-                    0, 5, 6, 7, 8, 9 -> result.append(thousand[0])
-                    2, 3, 4 -> result.append(thousand[2])
-                    else -> result.append(thousand[1])
-                }
+                result.append(exceptions[arrayOfNumeral[i + 1]], thousand[0])
                 i++
             })
             2 -> (if (arrayOfNumeral[i] != 0)
@@ -327,11 +323,11 @@ fun russian(n: Int):  String {
                     )
             3 -> if (arrayOfNumeral[i] != 0) result.append(hundredths[arrayOfNumeral[i]])
             4 -> (if (arrayOfNumeral[i] != 0 && arrayOfNumeral[i] != 1) result.append(decimal[arrayOfNumeral[i]])
-                    else if (arrayOfNumeral[i] != 0) {
+            else if (arrayOfNumeral[i] != 0) {
                 result.append(exceptions[arrayOfNumeral[i + 1]])
                 i++
             }
-            )
+                    )
             else -> result.append(single[arrayOfNumeral[i]])
         }
         i++
