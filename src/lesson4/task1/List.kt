@@ -279,6 +279,7 @@ fun roman(n: Int): String {
     return result
 }
 
+
 /**
  * Очень сложная
  *
@@ -286,4 +287,54 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int):  String = TODO()
+fun russian(n: Int):  String {
+    val result = StringBuilder()
+    val hundredths = listOf("", " сто", " двести", " триста", " четыреста", " пятьсот", " шестьсот",
+            " семьсот", " восемьсот", " девятьсот")
+    val decimal = listOf("", " десять", " двадцать", " тридцать", " сорок",
+            " пятьдесят", " шестьдесят", " семьдесят", " восемьдесят", " девяносто")
+    val single = listOf("", " один", " два", " три", " четыре", " пять", " шесть", " семь", " восемь",
+            " девять")
+    val singleOfThousand = listOf("", " одна", " две", " три", " четыре", " пять",
+            " шесть", " семь", " восемь", " девять")
+    val exceptions = listOf(" десять", " одиннадцать", " двенадцать", " тринадцать",
+            " четырнадцать", " пятнадцать", " шестьнадцать", " семьнадцать", " восемьнадцать", " девятнадцать")
+    val thousand = listOf(" тысяч", " тысяча", " тысячи")
+    val arrayOfNumeral = arrayOf(n / 100000 % 10, n / 10000 % 10, n / 1000 % 10,
+            n / 100 % 10, n / 10 % 10, n % 10)
+    var i = 0
+    while (i < 6) {
+        when (i) {
+            0 -> if (arrayOfNumeral[i] != 0) result.append(hundredths[arrayOfNumeral[i]])
+            1 -> (if (arrayOfNumeral[i] != 0 && arrayOfNumeral[i] != 1) result.append(decimal[arrayOfNumeral[i]])
+            else if (arrayOfNumeral[i] != 0) {
+                result.append(exceptions[arrayOfNumeral[i + 1]])
+                when (arrayOfNumeral[i + 1]) {
+                    5, 6, 7, 8, 9 -> result.append(thousand[0])
+                    2, 3, 4 -> result.append(thousand[2])
+                    else -> result.append(thousand[1])
+                }
+                i++
+            })
+            2 -> (if (arrayOfNumeral[i] != 0)
+                when (arrayOfNumeral[i]) {
+                    5, 6, 7, 8, 9 -> result.append(singleOfThousand[arrayOfNumeral[i]], thousand[0])
+                    2, 3, 4 -> result.append(singleOfThousand[arrayOfNumeral[i]], thousand[2])
+                    else -> result.append(singleOfThousand[arrayOfNumeral[i]], thousand[1])
+                }
+            else if (arrayOfNumeral[i - 1] != 0 || (arrayOfNumeral[i - 2] != 0))
+                result.append(singleOfThousand[arrayOfNumeral[i]], thousand[0])
+                    )
+            3 -> if (arrayOfNumeral[i] != 0) result.append(hundredths[arrayOfNumeral[i]])
+            4 -> (if (arrayOfNumeral[i] != 0 && arrayOfNumeral[i] != 1) result.append(decimal[arrayOfNumeral[i]])
+                    else if (arrayOfNumeral[i] != 0) {
+                result.append(exceptions[arrayOfNumeral[i + 1]])
+                i++
+            }
+            )
+            else -> result.append(single[arrayOfNumeral[i]])
+        }
+        i++
+    }
+    return result.toString().trim()
+}
