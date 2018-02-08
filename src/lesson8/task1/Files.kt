@@ -61,14 +61,14 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
             var value = if (result[element] != null) result[element]!! else 0
             while (rowLine.indexOf(element.toLowerCase()) != -1) {
                 value++
-                rowLine = rowLine.substring(rowLine.indexOf(element.toLowerCase()) + element.length)
+                rowLine = rowLine.substring(rowLine.indexOf(element.toLowerCase()) + element.length
+                - if(element.length != 1) 1 else 0)
             }
             result[element] = value
         }
     }
     return result
 }
-
 
 /**
  * Средняя
@@ -92,7 +92,7 @@ fun sibilants(inputName: String, outputName: String) {
             while (i < line.length) {
                 it.append(line[i])
                 if (line[i] in symbol) {
-                    if (line[i + 1] in error.keys) {
+                    if (i < line.length - 1 && line[i + 1] in error.keys) {
                         it.append(error[line[i + 1]]!!)
                         i++
                     }
