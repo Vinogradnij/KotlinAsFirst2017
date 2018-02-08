@@ -310,7 +310,7 @@ fun russian(n: Int):  String {
             else if (arrayOfNumeral[i] != 0) {
                 result.append(exceptions[arrayOfNumeral[i + 1]])
                 when (arrayOfNumeral[i + 1]) {
-                    5, 6, 7, 8, 9 -> result.append(thousand[0])
+                    0, 5, 6, 7, 8, 9 -> result.append(thousand[0])
                     2, 3, 4 -> result.append(thousand[2])
                     else -> result.append(thousand[1])
                 }
