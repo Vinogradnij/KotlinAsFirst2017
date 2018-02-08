@@ -53,7 +53,21 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    for (line in File(inputName).readLines()) {
+        for (element in substrings) {
+            var rowLine = line.toLowerCase()
+            var value = if (result[element] != null) result[element]!! else 0
+            while (rowLine.indexOf(element.toLowerCase()) != -1) {
+                value++
+                rowLine = rowLine.substring(rowLine.indexOf(element.toLowerCase()) + element.length)
+            }
+            result[element] = value
+        }
+    }
+    return result
+}
 
 
 /**
@@ -62,7 +76,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * В русском языке, как правило, после букв Ж, Ч, Ш, Щ пишется И, А, У, а не Ы, Я, Ю.
  * Во входном файле с именем inputName содержится некоторый текст на русском языке.
  * Проверить текст во входном файле на соблюдение данного правила и вывести в выходной
- * файл outputName текст с исправленными ошибками.
+ * файл outputName текст с исправленными ошибками
  *
  * Регистр заменённых букв следует сохранять.
  *
@@ -70,7 +84,24 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val error = mapOf('Ы' to 'И', 'ы' to 'и', 'Я' to 'А', 'я' to 'а', 'Ю' to 'У', 'ю' to 'у')
+    val symbol = listOf('Ж','ж','Ч','ч','Ш','ш','Щ','щ')
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            var i = 0
+            while (i < line.length) {
+                it.append(line[i])
+                if (line[i] in symbol) {
+                    if (line[i + 1] in error.keys) {
+                        it.append(error[line[i + 1]]!!)
+                        i++
+                    }
+                }
+                i++
+            }
+            it.newLine()
+        }
+    }
 }
 
 /**
@@ -90,8 +121,26 @@ fun sibilants(inputName: String, outputName: String) {
  * 4) Число строк в выходном файле должно быть равно числу строк во входном (в т. ч. пустых)
  *
  */
+fun createSpace(column: Int): String {
+    val answer = StringBuilder()
+    for (i in 0 until column) answer.append(" ")
+    return answer.toString()
+}
+
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var max = 0
+    for (line in File(inputName).readLines()) {
+        max = if (line.trim().length > max) line.trim().length else max
+    }
+    val mainCenter = max / 2
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()){
+            val lineCentral = line.trim().length / 2
+            val spaces = createSpace(mainCenter - lineCentral)
+            it.append(spaces + line.trim())
+            it.newLine()
+        }
+    }
 }
 
 /**
